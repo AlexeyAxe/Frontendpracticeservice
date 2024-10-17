@@ -1,0 +1,21 @@
+jwt:
+  secret: "357638792F423F4428472B4B6250655368566D597133743677397A2443264629"
+
+auth:
+  refresh_token_life_seconds: 60
+  access_token_life_seconds: 1
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
