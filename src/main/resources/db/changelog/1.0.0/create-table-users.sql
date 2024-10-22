@@ -21,3 +21,20 @@ CREATE TABLE IF NOT EXISTS users
 );
 
 --rollback drop table users;
+
+--changeset A.Aksenau:PUPPET-900.1 logicalFilePath:1.0.0/create-table-users.sql
+
+ALTER TABLE users
+    DROP COLUMN inn;
+
+ALTER TABLE users
+    ADD COLUMN requisites_id UUID;
+
+ALTER TABLE users
+    ADD CONSTRAINT fk_requisites_requisites_id
+FOREIGN KEY (requisites_id)
+REFERENCES requisites (id);
+
+--rollback alter table users add column inn varchar(12) not null;
+--rollback alter table users drop constraint fk_requisites_requisites_id;
+--rollback alter table users drop requisites_id;

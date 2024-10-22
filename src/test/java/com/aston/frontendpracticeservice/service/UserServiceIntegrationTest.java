@@ -1,6 +1,7 @@
 package com.aston.frontendpracticeservice.service;
 
 import com.aston.frontendpracticeservice.domain.entity.User;
+import com.aston.frontendpracticeservice.domain.dto.UserBankInfoDto;
 import com.aston.frontendpracticeservice.exception.UserNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -43,12 +46,29 @@ class UserServiceIntegrationTest {
         User user = userService.findByLogin("login");
         assertThat(user).isNotNull();
         assertThat(user.getLogin()).isEqualTo("login");
-        assertThat(user.getInn()).isEqualTo("111222333456");
+        assertThat(user.getSnils()).isEqualTo("11122233345");
         assertThat(user.getLastName()).isEqualTo("Петров");
     }
 
     @Test
     void shouldThrowExceptionWhenUserNotFound() {
         assertThrows(UserNotFoundException.class, () -> userService.findByLogin("notfound"));
+    }
+
+//    @Sql(scripts = "classpath:insert-test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    @Test
+    void shouldReturnUserBankInfoWhenUserExists() {
+        UUID userId = UUID.fromString("b5ca20bc-841e-4e58-ad53-bbb165e2329e");
+        UserBankInfoDto userBankInfoDto = userService.getUserBankInfo(userId);
+        assertThat(userBankInfoDto).isNotNull();
+        assertThat(userBankInfoDto.getFirstName()).isEqualTo("Петр");
+        assertThat(userBankInfoDto.getCurrentAccount()).isEqualTo("40702810000000000001");
+        assertThat(userBankInfoDto.getKbk()).isEqualTo("18210802020016000130");
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserBankInfoNotFound() {
+        UUID nonExistUserId = UUID.randomUUID();
+        assertThrows(UserNotFoundException.class, () -> userService.getUserBankInfo(nonExistUserId));
     }
 }
