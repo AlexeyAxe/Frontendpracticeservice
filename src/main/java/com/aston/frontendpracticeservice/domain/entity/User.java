@@ -7,8 +7,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -35,6 +38,7 @@ import java.util.UUID;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @NotBlank(message = "Имя не должно быть пустым")
@@ -49,9 +53,6 @@ public class User {
 
     @NotNull(message = "Дата рождения не должна быть пустой")
     private LocalDate birthday;
-
-    @Pattern(regexp = "\\d{12}", message = "ИНН состоит из 12 цифр.")
-    private String inn;
 
     @Pattern(regexp = "\\d{11}", message = "СНИЛС состоит из 11 цифр.")
     private String snils;
@@ -74,4 +75,8 @@ public class User {
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Role> roles;
 
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "requisites_id")
+    private Requisites requisites;
 }

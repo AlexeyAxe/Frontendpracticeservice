@@ -3,6 +3,9 @@ databaseChangeLog:
       file: create-extension-uuid-ossp.sql
       relativeToChangelogFile: true
   - include:
+      file: create-table-requisites.sql
+      relativeToChangelogFile: true
+  - include:
       file: create-table-users.sql
       relativeToChangelogFile: true
   - include:
