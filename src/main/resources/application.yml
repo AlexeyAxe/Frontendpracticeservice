@@ -19,10 +19,3 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
-logging:
-  level:
-    root: info
-    com.aston.frontendpracticeservice.aspect.LoggingAspect: debug
-  file:
-    name: logs/app.log
