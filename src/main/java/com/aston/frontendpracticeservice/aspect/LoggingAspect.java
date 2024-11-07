@@ -41,6 +41,6 @@ public class LoggingAspect {
     @AfterThrowing(pointcut = "applicationServiceMethods()", throwing = "exception")
     public void logMethodException(JoinPoint joinPoint, Exception exception) {
         String methodName = joinPoint.getSignature().getName();
-        log.error("Method {} threw an exception: {}", methodName, exception.getMessage(), exception);
+        log.error("Method {} threw an exception: {}", methodName, exception.getMessage());
     }
 }
