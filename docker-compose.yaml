@@ -5,7 +5,7 @@ services:
     build: .
     container_name: app
     ports:
-      - 9002:8080
+      - "9002:8080"
     restart: always
     volumes:
       - /logs/credit:/logs
@@ -75,6 +75,15 @@ services:
     depends_on:
       - elasticsearch
 
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - redis-network
+    restart: always
+
 volumes:
   postgres_data:
 
@@ -82,4 +91,6 @@ networks:
   a-tink-test:
     driver: bridge
   elk:
+    driver: bridge
+  redis-network:
     driver: bridge

@@ -1,4 +1,4 @@
-package com.aston.frontendpracticeservice.domain.dto;
+package com.aston.frontendpracticeservice.domain.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserBankInfoDto {
+public class UserBankInfoResponseDto {
 
     private String firstName;
 
