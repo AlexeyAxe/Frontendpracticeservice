@@ -85,10 +85,10 @@ class UserServiceIntegrationTest {
         UserAllInfoResponseDto userAllInfoResponseDto = userService.getAllInfo(userId);
 
         assertThat(userAllInfoResponseDto).isNotNull();
-        assertThat(userAllInfoResponseDto.getFirstName()).isEqualTo("Иван");
-        assertThat(userAllInfoResponseDto.getBirthday()).isEqualTo("1985-02-01");
+        assertThat(userAllInfoResponseDto.getFirstName()).isEqualTo("Петр");
+        assertThat(userAllInfoResponseDto.getBirthday()).isEqualTo("1990-12-12");
         assertThat(userAllInfoResponseDto.getLogin()).isEqualTo("login");
-        assertThat(userAllInfoResponseDto.getSnils()).isEqualTo("22233344455");
+        assertThat(userAllInfoResponseDto.getSnils()).isEqualTo("11122233345");
     }
 
     @Test

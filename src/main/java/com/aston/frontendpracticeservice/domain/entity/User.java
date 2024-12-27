@@ -1,6 +1,7 @@
 package com.aston.frontendpracticeservice.domain.entity;
 
 import com.aston.frontendpracticeservice.security.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -55,6 +56,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @JsonIgnore
     private Set<Role> roles;
 
     @OneToOne

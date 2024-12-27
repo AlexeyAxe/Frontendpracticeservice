@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     Optional<User> findByLogin(String login);
 
     @Query("""
- SELECT new com.aston.frontendpracticeservice.domain.dto.response.UserBankInfoDto(u.firstName, r.currentAccount, r.kbk)
+ SELECT new com.aston.frontendpracticeservice.domain.dto.response.UserBankInfoResponseDto(u.firstName, r.currentAccount, r.kbk)
  FROM User u
  JOIN u.requisites r
  WHERE u.id = :id
