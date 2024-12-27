@@ -6,6 +6,8 @@ import com.aston.frontendpracticeservice.exception.UserNotFoundException;
 import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.InvalidMediaTypeException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -41,5 +43,17 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected SimpleMessage handleJwtException(JwtException exception) {
         return new SimpleMessage(exception.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    protected ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException exception) {
+        return new ResponseEntity<>(
+                exception.getBindingResult()
+                        .getFieldErrors()
+                        .stream()
+                        .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                        .reduce((a, b) -> a + "; " + b)
+                        .orElse("Validation failed"),
+                HttpStatus.BAD_REQUEST);
     }
 }
